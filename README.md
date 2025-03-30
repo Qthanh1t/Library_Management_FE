@@ -33,7 +33,7 @@ Cơ sở dữ liệu sử dụng **PostgreSQL** để lưu trữ thông tin.
 ## Cấu trúc dự án  
 Dự án được chia thành hai phần chính:  
 1. **Frontend**  
-   - Repository: [Library Management Frontend](https://github.com/hnguyen04/library-management-frontend)  
+   - Repository: [Library Management Frontend](https://github.com/Qthanh1t/Library_Management_FE)  
    - Công nghệ: ReactJS  
 
 2. **Backend**  
@@ -52,7 +52,7 @@ Dự án được chia thành hai phần chính:
 ### Cài đặt Frontend:  
 1. Clone repository:
    ```bash
-   git clone https://github.com/hnguyen04/library-management-frontend.git
+   git clone https://github.com/Qthanh1t/Library_Management_FE
    cd library-management-frontend
 
 2. Cài đặt các gói phụ thuộc:
