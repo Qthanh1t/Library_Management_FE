@@ -37,7 +37,7 @@ Dự án được chia thành hai phần chính:
    - Công nghệ: ReactJS  
 
 2. **Backend**  
-   - Repository: [Library Management Backend](https://github.com/hnguyen04/library-management-backend)  
+   - Repository: 
    - Công nghệ: Java Spring Boot  
    - Cơ sở dữ liệu: PostgreSQL  
 
@@ -73,7 +73,7 @@ Dự án được chia thành hai phần chính:
 ### Cài đặt Backend:
 1. Clone repository:
    ```bash
-   git clone https://github.com/hnguyen04/library-management-backend.git
+   git clone 
    cd library-management-backend
 2. Chạy ứng dụng (recommend chạy trên IntelliJ IDEA)
   - Mở IntelliJ, chọn File > Open.

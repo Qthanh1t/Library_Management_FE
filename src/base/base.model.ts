@@ -6,12 +6,11 @@ export interface IBaseHttpResponse<T> {
   targetUrl?: string;
   success: boolean;
   error: any;
-  unAuthorizedRequest: boolean;
-  __abp: boolean;
   totalCount: number;
   totalRecords: number;
 }
 
+export type TBaseFormMode = 'create' | 'edit' | 'view';
 export interface IPaginatedItems<T> {
   items: T[];
   data: T[];
@@ -39,4 +38,3 @@ export type TBaseCrudCol = GridColDef & {
   hide?: boolean;
 };
 
-export type TBaseFormMode = 'create' | 'edit' | 'view';
