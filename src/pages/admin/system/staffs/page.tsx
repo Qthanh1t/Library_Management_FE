@@ -13,7 +13,7 @@ import ChangePassModal from './_components/change-pass-modal';
 import accountsService from './_services/accounts.service';
 import { hashUUIDTo8Char } from '@/services/utils';
 
-const SystemAccountsPage = () => {
+const SystemStaffsPage = () => {
   const { t } = useTranslation();
 
   const { data: getallRolesRes } = useQuery({
@@ -34,9 +34,8 @@ const SystemAccountsPage = () => {
       {
         headerName: t('ID'),
         field: 'id',
-        type: 'number',
-        width: 300,
-        flex: 1,
+        type: 'text',
+        width: 150,
         editable: false,
         renderCell: (params) => hashUUIDTo8Char(params.row.id),
       },
@@ -46,6 +45,7 @@ const SystemAccountsPage = () => {
         width: 150,
         type: 'string',
         editable: false,
+        flex: 1,
       },
       {
         field: 'userName',
@@ -67,8 +67,8 @@ const SystemAccountsPage = () => {
         headerName: t('Vai trò'),
         width: 200,
         type: 'string',
-        renderCell: (params) => t(params.row.roleName),
         editable: false,
+        renderCell: (params) => t(params.row.roleName),
       }
     ],
     [t],
@@ -102,7 +102,7 @@ const SystemAccountsPage = () => {
         label: t('Vai trò'),
         type: 'select',
         options: roleOptions,
-        defaultValue: 3,
+        defaultValue: 2,
         readOnly: true,
         colSpan: 3,
       },
@@ -156,7 +156,6 @@ const SystemAccountsPage = () => {
         label: t('Vai trò'),
         type: 'select',
         options: roleOptions,
-        defaultValue: 3,
         required: false,
         colSpan: 6,
       },
@@ -268,9 +267,9 @@ const SystemAccountsPage = () => {
 
   return (
     <BaseCrudPage
-      title={t('Quản lý người đọc')}
+      title={t('accounts')}
       name="accounts"
-      unitName=""
+      unitName={t('accounts')}
       service={accountsService}
       columns={columns}
       hideSelectRowCheckbox
@@ -291,7 +290,7 @@ const SystemAccountsPage = () => {
       hideSearchInput={true}
       defaultGetAllParams={
         {
-          roleId: 3,
+          roleId: 2,
         }
       }
       extendActions={[
@@ -310,4 +309,4 @@ const SystemAccountsPage = () => {
     />
   );
 };
-export default SystemAccountsPage;
+export default SystemStaffsPage;
