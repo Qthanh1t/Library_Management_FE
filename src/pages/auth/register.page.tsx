@@ -89,7 +89,7 @@ const RegisterPage = () => {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    backgroundImage: `url('https://i.imgur.com/0pL1DHx.png')`,
+                    backgroundImage: `url('https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg')`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
                     backgroundPosition: 'bottom',
