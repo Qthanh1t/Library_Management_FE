@@ -38,7 +38,7 @@ const SystemAccountsPage = () => {
         width: 300,
         flex: 1,
         editable: false,
-        renderCell: (params) => hashUUIDTo8Char(params.row.id),
+        renderCell: (params) => (params.row.id),
       },
       {
         field: 'name',

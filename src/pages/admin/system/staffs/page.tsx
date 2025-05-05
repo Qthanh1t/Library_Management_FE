@@ -37,7 +37,7 @@ const SystemStaffsPage = () => {
         type: 'text',
         width: 150,
         editable: false,
-        renderCell: (params) => hashUUIDTo8Char(params.row.id),
+        renderCell: (params) => params.row.id,
       },
       {
         field: 'name',
@@ -171,7 +171,7 @@ const SystemStaffsPage = () => {
         type: 'text',
         colSpan: 6,
         readOnly: true,
-        formatValue: (value) => hashUUIDTo8Char(value),
+        formatValue: (value) => (value),
       },
       {
         name: 'name',

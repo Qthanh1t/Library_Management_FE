@@ -23,6 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+.firebaserc
 .firebase
+firebase.json
 
 .env

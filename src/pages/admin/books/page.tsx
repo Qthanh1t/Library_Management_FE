@@ -60,7 +60,7 @@ const BookPage = () => {
             label: item.name,
             value: item.id,
         }));
-    }, []);
+    }, [getAllCategoriesRes]);
 
     const columns = useMemo<GridColDef[]>(() => [
         {
@@ -142,7 +142,7 @@ const BookPage = () => {
         {
             name: "publisherId",
             label: t("Nhà xuất bản"),
-            type: "select",
+            type: "multiautocomplete",
             required: true,
             colSpan: 6,
             options: publisherOptions,
@@ -150,7 +150,7 @@ const BookPage = () => {
         {
             name: "authorIds",
             label: t("Tác giả"),
-            type: "multiselect",
+            type: "multiautocomplete",
             required: true,
             options: authorOptions,
             colSpan: 6,
@@ -159,7 +159,7 @@ const BookPage = () => {
         {
             name: "categoryIds",
             label: t("Thể loại"),
-            type: "multiselect",
+            type: "multiautocomplete",
             required: true,
             options: categoryOptions,
             colSpan: 6,
