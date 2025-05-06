@@ -28,7 +28,7 @@ const registerSchema = yup.object({
 const RegisterPage = () => {
     const { t } = useTranslation();
     const { enqueueSnackbar } = useSnackbar();
-    const [selectedRole, setSelectedRole] = useState(2); // Default là "Nhân viên" (roleId = 2)
+    const [selectedRole, setSelectedRole] = useState(3);// id=3=>người đọc
 
     const {
         register,
@@ -137,7 +137,7 @@ const RegisterPage = () => {
                     </Stack>
 
                     {/* Tabs để chọn role */}
-                    <Tabs
+                    {/* <Tabs
                         value={selectedRole}
                         onChange={(_, newValue) => setSelectedRole(newValue)}
                         centered
@@ -145,7 +145,7 @@ const RegisterPage = () => {
                     >
                         <Tab label={t('STAFF')} value={2} />
                         <Tab label={t('USER')} value={3} />
-                    </Tabs>
+                    </Tabs> */}
 
                     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
                         <TextField
