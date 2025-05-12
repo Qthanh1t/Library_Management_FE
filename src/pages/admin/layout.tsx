@@ -4,30 +4,21 @@ import { ComponentType, useCallback, useEffect, useRef, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import Scrollbar, { MainScrollbarContext } from '@/components/scrollbar';
-import { ADMIN_LAYOUT } from '@/configs/constant.config';
 import useAbp from '@/hooks/use-abp';
 import useAuth from '@/hooks/use-auth';
 import AbpProvider from '@/services/abp/abp.context';
 import appService from '@/services/app/app.service';
 
-import SideNav from './_components/side-nav';
-import { TopNav } from './_components/top-nav';
+import TopNav from './_components/top-nav';
 
-const LayoutWrapper = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'openNavLg',
-})<{
-  openNavLg: boolean;
-}>(({ theme, openNavLg }) => ({
+const LayoutWrapper = styled(Box)({
   display: 'flex',
   flex: '1 1 auto',
   minHeight: 0,
   maxWidth: '100%',
   flexDirection: 'column',
-  backgroundColor: theme.palette.grey[100],
-  [theme.breakpoints.up('lg')]: {
-    paddingLeft: openNavLg ? ADMIN_LAYOUT.SIDE_NAV_WIDTH : 0,
-  },
-}));
+  backgroundColor: '#f4f6f8',
+});
 
 const LayoutContainer = styled(Scrollbar)({
   display: 'flex',
@@ -49,7 +40,6 @@ const AdminLayout = () => {
 
   const scrollableNodeRef = useRef<HTMLElement>(null);
   const [openNav, setOpenNav] = useState(false);
-  const [openNavLg, setOpenNavLg] = useState(true);
 
   const theme = useTheme();
   const lgUp = useMediaQuery(theme.breakpoints.up('lg'));
@@ -84,22 +74,14 @@ const AdminLayout = () => {
 
   useEffect(() => {
     handlePathnameChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return authQuery.isSuccess ? (
     <MainScrollbarContext.Provider value={{ scrollableNodeRef }}>
       <StyledWrapper>
-        <TopNav onNavOpen={() => setOpenNav(true)} openNavLg={openNavLg} />
+        <TopNav onNavOpen={() => setOpenNav(true)} openNavLg={false} />
 
-        <SideNav
-          open={openNav}
-          onClose={() => setOpenNav(false)}
-          openNavLg={openNavLg}
-          setOpenNavLg={setOpenNavLg}
-        />
-
-        <LayoutWrapper openNavLg={lgUp && openNavLg}>
+        <LayoutWrapper>
           <LayoutContainer>
             <Outlet />
           </LayoutContainer>

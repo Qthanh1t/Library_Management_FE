@@ -22,6 +22,15 @@ class AccountsService extends BaseCrudService {
 
     return res.result;
   }
+  public async create<T>(data: any, path = '/CreateStaff') {
+    const res = await httpService.request<TBaseResponse<T>>({
+      method: 'POST',
+      url: `${this.basePath}${path}`,
+      data,
+    });
+
+    return res.result;
+  }
 
   public async getAllRoles() {
     const response = await httpService.request<TBaseResponse<IPaginatedItems<IRole>>>({
@@ -30,6 +39,7 @@ class AccountsService extends BaseCrudService {
     })
     return response.result;
   }
+
 }
 
 const accountsService = new AccountsService();

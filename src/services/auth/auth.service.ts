@@ -14,7 +14,10 @@ import {
   IUserInfo,
 } from './auth.model';
 
+const REFRESH_TOKEN_KEY = 'refresh_token';
+
 class AuthService {
+  // Đăng nhập
   async login(input: ILoginInput) {
     const response = await axios.post<IBaseHttpResponse<ILoginResult>>(
       `${API_ENDPOINT}/auth/Login`,
@@ -22,11 +25,17 @@ class AuthService {
     );
 
     const data = response.data.result;
+
+    // Lưu access token vào cookie
     Cookies.set(ACCESS_TOKEN_KEY, data.accessToken, { sameSite: 'None', secure: true });
+
+    // Lưu refresh token vào localStorage
+    localStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
 
     return this.getUserInfo();
   }
 
+  // Lấy thông tin user
   async getUserInfo() {
     const accessToken = Cookies.get(ACCESS_TOKEN_KEY);
     if (!accessToken) {
@@ -41,55 +50,70 @@ class AuthService {
     return response.result;
   }
 
+  // Refresh access token bằng refresh token
   async refreshToken() {
     try {
+      const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+      if (!refreshToken) {
+        throw new Error('Refresh token not found');
+      }
+
       const response = await axios.post<IBaseHttpResponse<IRefreshTokenResult>>(
-        `${API_ENDPOINT}/auth/Refresh`
+        `${API_ENDPOINT}/auth/Refresh`,
+        { refreshToken }
       );
 
       const data = response.data.result;
 
-      Cookies.set(ACCESS_TOKEN_KEY, data.token);
+      // Lưu access token mới vào cookie
+      Cookies.set(ACCESS_TOKEN_KEY, data.token, { sameSite: 'None', secure: true });
+
+      // Nếu có refresh token mới thì lưu lại
+      if (data.refreshToken) {
+        localStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
+      }
+
       return true;
     } catch (error) {
-      Cookies.remove(ACCESS_TOKEN_KEY);
+      this.clearTokens();
       window.location.href = '/auth/login';
       return false;
     }
   }
 
+  // Đăng xuất
   async logout() {
     try {
-      const token = Cookies.get(ACCESS_TOKEN_KEY);
-      console.log('Token khi logout:', token);
+      const accessToken = Cookies.get(ACCESS_TOKEN_KEY);
 
-      const response = await axios.post<IBaseHttpResponse<null>>(
+      await axios.post<IBaseHttpResponse<null>>(
         `${API_ENDPOINT}/auth/Logout`,
-        {
-          token: token,
-        }
+        { token: accessToken }
       );
-
-      return response.data.result;
     } catch (error) {
-      return Promise.reject(error);
+      console.error('Logout error:', error);
     } finally {
-      Cookies.remove(ACCESS_TOKEN_KEY);
+      this.clearTokens();
       window.location.href = '/auth/login';
     }
   }
 
+  // Đăng ký
   async register(input: IRegisterInput) {
     const response = await axios.post<IBaseHttpResponse<IRegisterResult>>(
       `${API_ENDPOINT}/users/Create`,
       input
     );
 
-    const data = response.data.result;
-    return data;
+    return response.data.result;
+  }
+
+  // Hàm tiện ích: clear cả access token và refresh token
+  private clearTokens() {
+    Cookies.remove(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
   }
 }
 
 const authService = new AuthService();
-
 export default authService;
