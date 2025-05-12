@@ -38,8 +38,16 @@ class AuthService {
   // Lấy thông tin user
   async getUserInfo() {
     const accessToken = Cookies.get(ACCESS_TOKEN_KEY);
+    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+
     if (!accessToken) {
-      throw new Error('Access token is required');
+      if (refreshToken) {
+        const refresh = await this.refreshToken();
+        if (!refresh) throw new Error('Access token is required');
+      }
+      else {
+        throw new Error('Access token is required');
+      }
     }
 
     const response = await httpService.request<IBaseHttpResponse<IUserInfo>>({
@@ -52,6 +60,7 @@ class AuthService {
 
   // Refresh access token bằng refresh token
   async refreshToken() {
+    //console.log('refreshTokennnn');
     try {
       const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
       if (!refreshToken) {
@@ -66,7 +75,7 @@ class AuthService {
       const data = response.data.result;
 
       // Lưu access token mới vào cookie
-      Cookies.set(ACCESS_TOKEN_KEY, data.token, { sameSite: 'None', secure: true });
+      Cookies.set(ACCESS_TOKEN_KEY, data.accessToken, { sameSite: 'None', secure: true });
 
       // Nếu có refresh token mới thì lưu lại
       if (data.refreshToken) {
@@ -88,7 +97,7 @@ class AuthService {
 
       await axios.post<IBaseHttpResponse<null>>(
         `${API_ENDPOINT}/auth/Logout`,
-        { token: accessToken }
+        { accessToken }
       );
     } catch (error) {
       console.error('Logout error:', error);
