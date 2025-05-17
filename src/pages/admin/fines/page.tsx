@@ -18,14 +18,14 @@ const FinesPage = () => {
             headerName: t('ID'),
             type: 'text',
             width: 150,
-            renderCell: (params) => hashUUIDTo8Char(params.row.id),
+            renderCell: (params) => (params.row.id),
         },
         {
             field: "bookLoanId",
             headerName: t('Mã mượn'),
             type: 'text',
             width: 150,
-            renderCell: (params) => hashUUIDTo8Char(params.row.bookLoanId),
+            renderCell: (params) => (params.row.bookLoanId),
         },
         {
             field: 'userName',

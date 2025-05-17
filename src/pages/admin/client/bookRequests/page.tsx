@@ -23,14 +23,14 @@ const BookRequestsClientPage = () => {
             headerName: t('ID'),
             type: 'text',
             width: 150,
-            renderCell: (params) => hashUUIDTo8Char(params.row.id),
+            renderCell: (params) => (params.row.id),
         },
         {
             field: "bookCopyId",
             headerName: t('Id bản ghi'),
             type: 'text',
             width: 150,
-            renderCell: (params) => hashUUIDTo8Char(params.row.bookCopyId),
+            renderCell: (params) => (params.row.bookCopyId),
         },
         {
             field: 'bookTitle',
@@ -71,7 +71,7 @@ const BookRequestsClientPage = () => {
                 type: 'text',
                 colSpan: 6,
                 readOnly: true,
-                formatValue: (value) => hashUUIDTo8Char(value),
+                formatValue: (value) => (value),
             },
             {
                 name: 'bookCopyId',
@@ -79,7 +79,7 @@ const BookRequestsClientPage = () => {
                 type: 'text',
                 colSpan: 6,
                 readOnly: true,
-                formatValue: (value) => hashUUIDTo8Char(value),
+                formatValue: (value) => (value),
             },
             {
                 name: 'bookTitle',
@@ -104,7 +104,7 @@ const BookRequestsClientPage = () => {
                 formatValue: (value) => t(value),
                 readOnly: true,
             },
-        
+
         ],
         [t],
     );

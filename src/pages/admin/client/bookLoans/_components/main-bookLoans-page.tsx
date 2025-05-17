@@ -82,14 +82,14 @@ const MainBookLoansClientPage = (props: IMainBookLoansPageProps) => {
             headerName: t("ID"),
             type: "number",
             width: 150,
-            renderCell: (params) => hashUUIDTo8Char(params.row.id),
+            renderCell: (params) => (params.row.id),
         },
         {
             field: "bookCopyId",
             headerName: t("Id bản ghi"),
             type: "text",
             width: 150,
-            renderCell: (params) => hashUUIDTo8Char(params.row.bookCopyId),
+            renderCell: (params) => (params.row.bookCopyId),
         },
         {
             field: "bookTitle",
@@ -136,7 +136,7 @@ const MainBookLoansClientPage = (props: IMainBookLoansPageProps) => {
             type: "text",
             colSpan: 6,
             readOnly: true,
-            formatValue: (value) => hashUUIDTo8Char(value),
+            formatValue: (value) => (value),
         },
         {
             name: "bookTitle",
@@ -221,8 +221,8 @@ const MainBookLoansClientPage = (props: IMainBookLoansPageProps) => {
                 return [];
         }
     }, [
-        status, 
-        t, 
+        status,
+        t,
         removeBorrowMutation,
     ]);
 
